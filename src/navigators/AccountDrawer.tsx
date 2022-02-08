@@ -5,8 +5,11 @@ import { useWindowDimensions } from 'react-native';
 import { ContactPrefs } from '../screens/Account/ContactPrefs';
 import { Details } from '../screens/Account/Details';
 import { Notifications } from '../screens/Account/Notifications';
+import { DrawerNavigationOptions } from '@react-navigation/drawer/lib/typescript/src/types';
+import { BackButton } from '../components/BackButton';
 
 const Drawer = createDrawerNavigator();
+
 
 export const AccountDrawer = ({navigation}: any) => {
   const {width} = useWindowDimensions();
@@ -28,16 +31,19 @@ export const AccountDrawer = ({navigation}: any) => {
     unsubscribe();
   }, [navigation])
 
+  const screenOptions: DrawerNavigationOptions = {
+    drawerPosition: 'right',
+    drawerType: width > 768 ? 'permanent' : 'front',
+    drawerStyle: width > 768 ? {width: '40%'} : {width: '100%'},
+    overlayColor: 'transparent',
+    headerLeft: () =>  <BackButton {...navigation}/>,
+    headerTitle: 'Account'
+  }
+
   return (
     <Drawer.Navigator
       defaultStatus="open"
-      screenOptions={{
-        drawerPosition: 'right',
-        drawerType: width > 768 ? 'permanent' : 'front',
-        drawerStyle: width > 768 ? {width: '40%'} : {width: '100%'},
-        overlayColor: 'transparent'
-      }}
-      // drawerContent={props => <DrawerContent {...props} />}
+      screenOptions={screenOptions}
     >
       <Drawer.Screen name="My Details" component={Details} />
       <Drawer.Screen name="Notifications" component={Notifications} />

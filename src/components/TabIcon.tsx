@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { appTheme } from '../appTheme/appTheme';
 
 
@@ -14,13 +14,14 @@ export const TabIcon = ({route, size=30, color=appTheme.colors.primary}: Props) 
     case 'Categories':
       name = 'search';
       break;
-    case 'Add':
-      name = 'pencil';
+    case 'AddEdit':
+      name = 'edit';
       break;
     case 'Saved':
       name = 'bookmark';
+      break;
     case 'Account':
-      name = 'user';
+      name = 'person';
       break;
     default:
       name = 'home';
