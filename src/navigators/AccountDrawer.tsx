@@ -37,7 +37,10 @@ export const AccountDrawer = ({navigation}: any) => {
     drawerStyle: width > 768 ? {width: '40%'} : {width: '100%'},
     overlayColor: 'transparent',
     headerLeft: () =>  <BackButton {...navigation}/>,
-    headerTitle: 'Account'
+    headerTitle: 'Account',
+    sceneContainerStyle: {
+      backgroundColor: 'white'
+    }
   }
 
   return (
