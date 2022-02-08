@@ -6,6 +6,7 @@ type AuthAction = { type: 'signIn'}
 export const AuthReducer = (prevState: AuthState, action: AuthAction): AuthState => {
     switch (action.type) {
         case 'signIn':
+            // never mutate, return new state
             return {
                 ...prevState,
                 isLogged: true,
