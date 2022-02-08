@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from "react"
+import { AuthReducer } from "./AuthReducer";
 
 // defines the state of my app
 export interface AuthState {
@@ -23,14 +24,20 @@ export const AuthContext = createContext({} as AuthContextProps);
 
 // State provider component
 export const AuthProvider = ({children}: any) => {
-  return (
-    <AuthContext.Provider value={{
-        authState: authInitialState,
-        signIn: () => {}
-    }}>
-        {children}
-    </AuthContext.Provider>
-  );
+    const [authState, dispatch] = useReducer(AuthReducer, authInitialState);
+
+    const signIn = () => {
+        dispatch({type: 'signIn'})
+    }
+
+    return (
+        <AuthContext.Provider value={{
+            authState,
+            signIn
+        }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 
