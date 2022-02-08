@@ -1,22 +1,24 @@
-import React, { createContext } from "react"
+import React, { createContext, useReducer } from "react"
 
-// define which info 
+// defines the state of my app
 export interface AuthState {
     isLogged: boolean;
     userName?: string;
     userId?: string;
 }
 
+// initial state
 export const authInitialState: AuthState = {
     isLogged: false
 }
 
-// interface of what the context exposes
+// Interface of what the provider will expose
 export interface AuthContextProps {
     authState: AuthState;
     signIn: () => void;
 }
 
+// Create context
 export const AuthContext = createContext({} as AuthContextProps);
 
 // State provider component
