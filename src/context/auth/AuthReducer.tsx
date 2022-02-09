@@ -1,11 +1,11 @@
 import { AuthState } from "./AuthContext";
 
-type AuthAction = { type: 'signIn'}
+type AuthAction = { type: 'logIn'}
 
 // a reducer is a function that recieves a state and returns a new state
 export const AuthReducer = (prevState: AuthState, action: AuthAction): AuthState => {
     switch (action.type) {
-        case 'signIn':
+        case 'logIn':
             // never mutate, return new state
             return {
                 ...prevState,
