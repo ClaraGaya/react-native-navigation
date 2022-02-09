@@ -64,7 +64,10 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
       <DrawerItemList {...props} />
       {!isLogged ? 
       (<DrawerItem label="Log Out" onPress={logIn} />)
-      :(<DrawerItem label="Log In" onPress={() => logOut(userId as string)} />)
+      // Skip userId evaluation by using exclamation mark. 
+      // since at this point I know this is not undefined 
+      // and we have a value for it
+      :(<DrawerItem label="Log In" onPress={() => logOut(userId!)} />)
       }
     </DrawerContentScrollView>
   )
