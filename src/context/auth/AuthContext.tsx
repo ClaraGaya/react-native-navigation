@@ -10,13 +10,14 @@ export interface AuthState {
 
 // initial state
 export const authInitialState: AuthState = {
-    isLogged: false
+    isLogged: false,
 }
 
 // Interface of what the provider will expose
 export interface AuthContextProps {
     authState: AuthState;
-    signIn: () => void;
+    logIn: () => void;
+    logOut: (userId:string) => void;
 }
 
 // Create context
@@ -26,14 +27,18 @@ export const AuthContext = createContext({} as AuthContextProps);
 export const AuthProvider = ({children}: any) => {
     const [authState, dispatch] = useReducer(AuthReducer, authInitialState);
 
-    const signIn = () => {
+    const logIn = () => {
         dispatch({type: 'logIn'})
+    }
+    const logOut = (userId: string) => {
+        dispatch({type: 'logOut', payload: userId})
     }
 
     return (
         <AuthContext.Provider value={{
             authState,
-            signIn
+            logIn,
+            logOut
         }}>
             {children}
         </AuthContext.Provider>

@@ -1,13 +1,13 @@
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { CommonActions } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { Text, useWindowDimensions } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { useWindowDimensions } from 'react-native';
 import { ContactPrefs } from '../screens/Account/ContactPrefs';
 import { Details } from '../screens/Account/Details';
 import { Notifications } from '../screens/Account/Notifications';
 import { DrawerContentComponentProps, DrawerNavigationOptions } from '@react-navigation/drawer/lib/typescript/src/types';
 import { BackButton } from '../components/BackButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AuthContext } from '../context/auth/AuthContext';
 
 const Drawer = createDrawerNavigator();
 
@@ -58,10 +58,14 @@ export const AccountDrawer = ({navigation}: any) => {
 };
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
+  const { authState: {userId, isLogged}, logIn, logOut } = useContext(AuthContext);
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem label="Log In" onPress={() => console.log("Login")} />
+      {!isLogged ? 
+      (<DrawerItem label="Log Out" onPress={logIn} />)
+      :(<DrawerItem label="Log In" onPress={() => logOut(userId as string)} />)
+      }
     </DrawerContentScrollView>
   )
 }
