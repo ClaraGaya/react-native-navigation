@@ -58,14 +58,18 @@ export const AccountDrawer = ({navigation}: any) => {
 };
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
-  const { authState: {userId, isLogged}, logIn, logOut } = useContext(AuthContext);
+  const { authState: {userId, isLogged}, onLogin, onLogout } = useContext(AuthContext);
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      {!isLogged ? 
-      (<DrawerItem label="Log Out" onPress={logIn} />)
-      :(<DrawerItem label="Log In" onPress={() => logOut(userId as string)} />)
+      {isLogged ? 
+      (<DrawerItem label="Log Out" onPress={() => onLogout(userId!)} />)
+      // Skip userId evaluation by using exclamation mark. 
+      // since at this point I know this is not undefined 
+      // and we have a value for it
+      :(<DrawerItem label="Log In" onPress={() => onLogin(userId!)} />)
       }
+      <DrawerItem label={isLogged? 'true': 'false'} onPress={() => {}} />
     </DrawerContentScrollView>
   )
 }

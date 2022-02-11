@@ -20,6 +20,15 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+        <intent-filter>
+            <action android:name="Android.intent.action.VIEW" />
+            <category android:name="Android.intent.category.DEFAULT" />
+            <category android:name="Android.intent.category.BROWSABLE" />
+            <data
+                android:host="dev-zx-bq3yz.eu.auth0.com"
+                android:pathPrefix="/Android/${applicationId}/callback"
+                android:scheme="${applicationId}" />
+        </intent-filter>
       </activity>
     </application>
 </manifest>

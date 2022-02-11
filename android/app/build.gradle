@@ -1,4 +1,15 @@
 apply plugin: "com.android.application"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+project.ext.envConfigFiles = [
+    dev: ".env.dev",
+    qa: ".env.qa",
+    uat: ".env.uat",
+    prod: ".env.prod",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 
 import com.android.build.OutputFile
 
@@ -130,12 +141,21 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    flavorDimensions "default"
+    productFlavors {
+        dev {}
+        qa {}
+        uat {}
+        prod {}
+    }
+
     defaultConfig {
         applicationId "com.reactnativenavigation"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [auth0Domain: "dev-zx-bq3yz.eu.auth0.com", auth0Scheme: "${applicationId}"]
     }
     splits {
         abi {
